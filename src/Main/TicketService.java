@@ -1,14 +1,19 @@
+package Main;
+
+import Enums.StadiumSector;
+import Enums.PromoStatus;
+
 import java.sql.Timestamp;
 
-public class TicketService {
+public class TicketService{
     public static void main(String[] args) {
         Ticket ticketFull = new Ticket(
                 "dd12",
                 "1234567890",
                 (short)123,
                 Timestamp.valueOf("2024-12-20 20:00:00"),
-                false,
-                'A',
+                PromoStatus.YES,
+                StadiumSector.A,
                 10.999f
         );
         System.out.println(ticketFull.toString());

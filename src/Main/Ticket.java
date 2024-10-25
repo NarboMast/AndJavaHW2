@@ -1,3 +1,8 @@
+package Main;
+
+import Enums.StadiumSector;
+import Enums.PromoStatus;
+
 import java.sql.Timestamp;
 
 public class Ticket {
@@ -5,8 +10,8 @@ public class Ticket {
     private final String concertHall;
     private final Short eventCode;
     private final Timestamp eventTime;
-    private final Boolean PROMO;
-    private final Character stadiumSector;
+    private final PromoStatus PROMO;
+    private final StadiumSector stadiumSector;
     private final Float maxWeight;
     private static Timestamp ticketCreationTime;
 
@@ -15,14 +20,14 @@ public class Ticket {
             String concertHall,
             Short eventCode,
             Timestamp eventTime,
-            Boolean promo,
-            Character stadiumSector,
+            PromoStatus promo,
+            StadiumSector stadiumSector,
             Float weight)
     {
         idValid(id);
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
-        stadiumSectorValid(stadiumSector);
+        //stadiumSectorValid(stadiumSector);
 
         this.ID = id;
         this.concertHall = concertHall;
@@ -82,13 +87,13 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return  "Ticket ID: " + ID
+        return  "Main.Ticket ID: " + ID
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode
                 + "\nEvent Time: " + eventTime
                 + "\nPromo: " + PROMO
                 + "\nStadium sector: " + stadiumSector
                 + "\nMax allowed backpack weight: " + maxWeight
-                + "\nTicket creation time: " + ticketCreationTime +"\n";
+                + "\nMain.Ticket creation time: " + ticketCreationTime +"\n";
     }
 }
