@@ -36,6 +36,7 @@ public class TicketService{
                 (short)123,
                 Timestamp.valueOf("2024-6-1 18:30:00")
         );
+
         System.out.println(ticketLimited.toString());
     }
 }
