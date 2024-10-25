@@ -27,7 +27,6 @@ public class Ticket {
         idValid(id);
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
-        //stadiumSectorValid(stadiumSector);
 
         this.ID = id;
         this.concertHall = concertHall;
@@ -74,13 +73,6 @@ public class Ticket {
     private void eventCodeValid(Short eventCode){
         if (eventCode != null && (eventCode < 100 || eventCode > 999)){
             System.out.println("Event code must be exactly 3 digits");
-            System.exit(-1);
-        }
-    }
-
-    private void stadiumSectorValid(Character stadiumSector){
-        if(stadiumSector != null && (stadiumSector < 65 || stadiumSector > 67)){
-            System.out.println("Stadium sector must be A, B or C");
             System.exit(-1);
         }
     }
