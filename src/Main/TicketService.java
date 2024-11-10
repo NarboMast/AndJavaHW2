@@ -18,7 +18,6 @@ public class TicketService{
         );
         System.out.println(ticketFull.toString());
 
-
         Ticket ticketEmpty = new Ticket(
                 null,
                 null,
@@ -29,7 +28,6 @@ public class TicketService{
                 null
         );
         System.out.println(ticketEmpty.toString());
-
 
         Ticket ticketLimited = new Ticket(
                 "1234567890",
