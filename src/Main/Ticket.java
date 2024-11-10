@@ -77,9 +77,13 @@ public class Ticket {
         }
     }
 
+    public String getID() {
+        return ID;
+    }
+
     @Override
     public String toString() {
-        return  "Main.Ticket ID: " + ID
+        return  "Ticket ID: " + ID
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode
                 + "\nEvent Time: " + eventTime
