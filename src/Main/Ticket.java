@@ -5,13 +5,13 @@ import Enums.PromoStatus;
 
 import java.sql.Timestamp;
 
-public class Ticket {
-    private final String ID;
+public class Ticket  extends Indexable implements Printable, Validation{
+    private String id;
     private final String concertHall;
     private final Short eventCode;
-    private final Timestamp eventTime;
+    private Timestamp eventTime;
     private final PromoStatus PROMO;
-    private final StadiumSector stadiumSector;
+    private StadiumSector stadiumSector;
     private final Float maxWeight;
     private static Timestamp ticketCreationTime;
 
@@ -22,13 +22,12 @@ public class Ticket {
             Timestamp eventTime,
             PromoStatus promo,
             StadiumSector stadiumSector,
-            Float weight)
-    {
+            Float weight) {
         idValid(id);
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
 
-        this.ID = id;
+        this.id = id;
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.eventTime = eventTime;
@@ -41,12 +40,11 @@ public class Ticket {
 
     public Ticket(String concertHall,
                   Short eventCode,
-                  Timestamp eventTime)
-    {
+                  Timestamp eventTime) {
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
 
-        this.ID = null;
+        this.id = null;
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.eventTime = eventTime;
@@ -56,40 +54,40 @@ public class Ticket {
         ticketCreationTime = new Timestamp(System.currentTimeMillis());
     }
 
-    private void idValid(String id){
-        if(id != null && id.length()!= 4){
-            System.out.println("ID of the ticket must be exactly 4 digits or/and chars");
-            System.exit(-1);
-        }
-    }
-
-    private void concertHallValid(String concertHall){
-        if(concertHall != null && concertHall.length() > 10){
-            System.out.println("Concert Hall cannot be longer than 10 digits");
-            System.exit(-1);
-        }
-    }
-
-    private void eventCodeValid(Short eventCode){
-        if (eventCode != null && (eventCode < 100 || eventCode > 999)){
-            System.out.println("Event code must be exactly 3 digits");
-            System.exit(-1);
-        }
-    }
-
-    public String getID() {
-        return ID;
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
-    public String toString() {
-        return  "Ticket ID: " + ID
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String print() {
+        return  "Ticket ID: " + id
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode
                 + "\nEvent Time: " + eventTime
                 + "\nPromo: " + PROMO
                 + "\nStadium sector: " + stadiumSector
                 + "\nMax allowed backpack weight: " + maxWeight
-                + "\nMain.Ticket creation time: " + ticketCreationTime +"\n";
+                + "\nTicket creation time: " + ticketCreationTime +"\n";
+    }
+
+    public String shared(String id){
+        return "Ticket: " + id + " is shared via phone";
+    }
+
+    public String shared(String id, boolean viaEmail){
+        return "Ticket: " + id + " is shared via phone and email";
+    }
+
+    public void setEventTime(Timestamp eventTime) {
+        this.eventTime = eventTime;
+    }
+    public void setStadiumSector(StadiumSector stadiumSector) {
+        this.stadiumSector = stadiumSector;
     }
 }
