@@ -1,11 +1,10 @@
 package Main;
 
-import Enums.StadiumSector;
-import Enums.PromoStatus;
+import Enums.*;
 
 import java.sql.Timestamp;
 
-public class Ticket  extends Indexable implements Printable, Validation{
+public class Ticket extends Indexable implements Printable, Validation, SharedVia{
     private String id;
     private final String concertHall;
     private final Short eventCode;
@@ -14,6 +13,7 @@ public class Ticket  extends Indexable implements Printable, Validation{
     private StadiumSector stadiumSector;
     private final Float maxWeight;
     private static Timestamp ticketCreationTime;
+    private SharedViaEnum sharedViaEnum;
 
     public Ticket
             (String id,
@@ -22,7 +22,8 @@ public class Ticket  extends Indexable implements Printable, Validation{
             Timestamp eventTime,
             PromoStatus promo,
             StadiumSector stadiumSector,
-            Float weight) {
+            Float weight,
+            SharedViaEnum sharedViaEnum) {
         idValid(id);
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
@@ -35,12 +36,14 @@ public class Ticket  extends Indexable implements Printable, Validation{
         this.stadiumSector = stadiumSector;
         this.maxWeight = weight;
         ticketCreationTime = new Timestamp(System.currentTimeMillis());
+        this.sharedViaEnum = sharedViaEnum;
     }
 
 
     public Ticket(String concertHall,
                   Short eventCode,
-                  Timestamp eventTime) {
+                  Timestamp eventTime,
+                  SharedViaEnum sharedViaEnum) {
         concertHallValid(concertHall);
         eventCodeValid(eventCode);
 
@@ -52,6 +55,7 @@ public class Ticket  extends Indexable implements Printable, Validation{
         this.stadiumSector = null;
         this.maxWeight = null;
         ticketCreationTime = new Timestamp(System.currentTimeMillis());
+        this.sharedViaEnum = sharedViaEnum;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class Ticket  extends Indexable implements Printable, Validation{
     }
 
     @Override
-    public String print() {
+    public String toString() {
         return  "Ticket ID: " + id
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode
@@ -73,15 +77,23 @@ public class Ticket  extends Indexable implements Printable, Validation{
                 + "\nPromo: " + PROMO
                 + "\nStadium sector: " + stadiumSector
                 + "\nMax allowed backpack weight: " + maxWeight
-                + "\nTicket creation time: " + ticketCreationTime +"\n";
+                + "\nTicket creation time: " + ticketCreationTime;
     }
 
-    public String shared(String id){
-        return "Ticket: " + id + " is shared via phone";
+    @Override
+    public String shared(Ticket ticket){
+        if(getSharedViaEnum() == null){
+            return "Ticket is not shared";
+        }
+
+        return switch (getSharedViaEnum()) {
+            case PHONE -> "Ticket is shared via phone";
+            case PHONE_EMAIL -> "Ticket is shared via phone and email";
+        };
     }
 
-    public String shared(String id, boolean viaEmail){
-        return "Ticket: " + id + " is shared via phone and email";
+    public SharedViaEnum getSharedViaEnum(){
+        return sharedViaEnum;
     }
 
     public void setEventTime(Timestamp eventTime) {

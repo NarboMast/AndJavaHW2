@@ -1,12 +1,16 @@
 package Users;
 
+import Enums.*;
+import Main.Ticket;
+import Main.Tickets;
+
 public class Client implements User{
     @Override
     public String printRole() {
-        return "Admin";
+        return "I am a client";
     }
 
-    public String getTicket() {
-        return "";
+    public void getTicket(Ticket ticket) {
+        Tickets.addTicket(ticket);
     }
 }
