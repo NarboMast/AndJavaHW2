@@ -69,7 +69,7 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
     }
 
     @Override
-    public String toString() {
+    public String print() {
         return  "Ticket ID: " + id
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode

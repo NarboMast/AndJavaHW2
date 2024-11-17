@@ -11,7 +11,7 @@ public class TicketService extends Indexable{
     public static void main(String[] args) {
         new Tickets();
         Ticket ticket = Tickets.getTicketId("dd04");
-        System.out.println(ticket.toString());
+        System.out.println(ticket.print());
         System.out.println(ticket.shared(ticket));
 
         Client client = new Client();
