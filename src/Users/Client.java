@@ -1,16 +1,30 @@
 package Users;
 
-import Enums.*;
 import Main.Ticket;
-import Main.Tickets;
+import Main.TicketStorage;
 
 public class Client implements User{
-    @Override
-    public String printRole() {
-        return "I am a client";
+    private String clientId;
+
+    public Client(String clientId){
+        this.clientId = clientId;
     }
 
-    public void getTicket(Ticket ticket) {
-        Tickets.addTicket(ticket);
+    @Override
+    public String printRole() {
+        return "I am a client under number: " + clientId;
+    }
+
+    public Ticket getTicket(String clientId) {
+        for(Ticket ticket : TicketStorage.tickets){
+            if(ticket.getClientId().equals(clientId)){
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+    public String getClientId() {
+        return clientId;
     }
 }

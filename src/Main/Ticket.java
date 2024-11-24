@@ -4,7 +4,7 @@ import Enums.*;
 
 import java.sql.Timestamp;
 
-public class Ticket extends Indexable implements Printable, Validation, SharedVia{
+public class Ticket extends Indexable implements Printable {
     private String id;
     private final String concertHall;
     private final Short eventCode;
@@ -13,7 +13,8 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
     private StadiumSector stadiumSector;
     private final Float maxWeight;
     private static Timestamp ticketCreationTime;
-    private SharedViaEnum sharedViaEnum;
+    private final SharedType sharedType;
+    private final String clientId;
 
     public Ticket
             (String id,
@@ -23,10 +24,11 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
             PromoStatus promo,
             StadiumSector stadiumSector,
             Float weight,
-            SharedViaEnum sharedViaEnum) {
-        idValid(id);
-        concertHallValid(concertHall);
-        eventCodeValid(eventCode);
+            SharedType sharedType,
+            String clientId) {
+        Validation.validateId(id);
+        Validation.concertHallValid(concertHall);
+        Validation.eventCodeValid(eventCode);
 
         this.id = id;
         this.concertHall = concertHall;
@@ -36,16 +38,18 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
         this.stadiumSector = stadiumSector;
         this.maxWeight = weight;
         ticketCreationTime = new Timestamp(System.currentTimeMillis());
-        this.sharedViaEnum = sharedViaEnum;
+        this.sharedType = sharedType;
+        this.clientId = clientId;
     }
 
 
     public Ticket(String concertHall,
                   Short eventCode,
                   Timestamp eventTime,
-                  SharedViaEnum sharedViaEnum) {
-        concertHallValid(concertHall);
-        eventCodeValid(eventCode);
+                  SharedType sharedType,
+                  String clientId) {
+        Validation.concertHallValid(concertHall);
+        Validation.eventCodeValid(eventCode);
 
         this.id = null;
         this.concertHall = concertHall;
@@ -55,7 +59,8 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
         this.stadiumSector = null;
         this.maxWeight = null;
         ticketCreationTime = new Timestamp(System.currentTimeMillis());
-        this.sharedViaEnum = sharedViaEnum;
+        this.sharedType = sharedType;
+        this.clientId = clientId;
     }
 
     @Override
@@ -80,20 +85,19 @@ public class Ticket extends Indexable implements Printable, Validation, SharedVi
                 + "\nTicket creation time: " + ticketCreationTime;
     }
 
-    @Override
-    public String shared(Ticket ticket){
-        if(getSharedViaEnum() == null){
-            return "Ticket is not shared";
-        }
-
-        return switch (getSharedViaEnum()) {
-            case PHONE -> "Ticket is shared via phone";
-            case PHONE_EMAIL -> "Ticket is shared via phone and email";
-        };
+    public String getClientId(){
+        return clientId;
     }
 
-    public SharedViaEnum getSharedViaEnum(){
-        return sharedViaEnum;
+    public String share(){
+        if(sharedType == null){
+            return "Ticket " + getId() + " is not shared";
+        }
+        return sharedType.share();
+    }
+
+    public SharedType getSharedViaEnum(){
+        return sharedType;
     }
 
     public void setEventTime(Timestamp eventTime) {
