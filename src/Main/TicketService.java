@@ -1,5 +1,6 @@
 package Main;
 
+import BusTicketHandler.BusTicketStorage;
 import Users.Admin;
 import Users.Client;
 
@@ -16,5 +17,8 @@ public class TicketService extends Indexable{
         System.out.println(admin.printRole());
         admin.checkTicketById(ticket.getId());
         admin.checkTicketByClientId(client.getClientId());
+
+        BusTicketStorage busTicketStorage = new BusTicketStorage();
+        System.out.println(busTicketStorage.toPrint());
     }
 }

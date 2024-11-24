@@ -1,5 +1,7 @@
 package Main;
 
+import ValidationException.ValidationException;
+
 public class Validation {
     public static void validateId(String id){
         if (id == null || id.length() != 4) {

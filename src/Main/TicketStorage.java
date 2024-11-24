@@ -1,13 +1,12 @@
 package Main;
 
 import Enums.*;
-import Enums.SharedType;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TicketStorage {
-    public static ArrayList<Ticket> tickets = new ArrayList<Ticket>();;
+    public static ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     public TicketStorage() {
         tickets.add(new Ticket("dd01", "1234567890", (short) 123, Timestamp.valueOf("2024-12-20 20:00:00"), PromoStatus.YES, StadiumSector.A, 10.999f, null, "PE123456789"));
