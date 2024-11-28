@@ -1,4 +1,4 @@
-package Main;
+package ticketService;
 
 public abstract class Indexable {
     private String id;

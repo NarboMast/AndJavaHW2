@@ -1,7 +1,7 @@
-package Users;
+package users;
 
-import Main.Ticket;
-import Main.TicketStorage;
+import ticketService.Ticket;
+import ticketService.TicketStorage;
 
 public class Client implements User{
     private String clientId;

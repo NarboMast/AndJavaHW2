@@ -1,4 +1,4 @@
-package Main;
+package ticketService;
 
 public interface Printable {
     default String print() {

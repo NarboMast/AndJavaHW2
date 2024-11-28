@@ -1,8 +1,8 @@
-package Main;
+package ticketService;
 
-import BusTicketHandler.BusTicketStorage;
-import Users.Admin;
-import Users.Client;
+import busTicketHandler.BusTicketStorage;
+import users.Admin;
+import users.Client;
 
 public class TicketService extends Indexable{
     public static void main(String[] args) {

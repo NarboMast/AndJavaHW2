@@ -1,6 +1,5 @@
-package BusTicketHandler;
+package busTicketHandler;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class BusTicket {

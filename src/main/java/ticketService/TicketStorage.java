@@ -1,6 +1,6 @@
-package Main;
+package ticketService;
 
-import Enums.*;
+import enums.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
