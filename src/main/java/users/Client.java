@@ -3,11 +3,14 @@ package users;
 import ticketService.Ticket;
 import ticketService.TicketStorage;
 
-public class Client implements User{
+public class Client extends User {
+    private Role role;
     private String clientId;
 
-    public Client(String clientId){
+    public Client(User user, String clientId) {
+        super(user.getName());
         this.clientId = clientId;
+        this.role = Role.CLIENT;
     }
 
     @Override

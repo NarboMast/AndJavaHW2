@@ -3,11 +3,11 @@ package ticketService;
 public abstract class Indexable {
     private String id;
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTicketId(String ticketId) {
+        this.id = ticketId;
     }
 
-    public String getId() {
+    public String getTicketId() {
         return id;
     }
 }
