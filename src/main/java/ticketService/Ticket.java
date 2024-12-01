@@ -1,11 +1,12 @@
 package ticketService;
 
 import enums.*;
+import sharedVia.ValidateSharedType;
 
 import java.sql.Timestamp;
 
 public class Ticket extends Indexable implements Printable {
-    private String id;
+    private String ticketId;
     private final String concertHall;
     private final Short eventCode;
     private Timestamp eventTime;
@@ -30,7 +31,7 @@ public class Ticket extends Indexable implements Printable {
         Validation.concertHallValid(concertHall);
         Validation.eventCodeValid(eventCode);
 
-        this.id = id;
+        this.ticketId = id;
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.eventTime = eventTime;
@@ -51,7 +52,7 @@ public class Ticket extends Indexable implements Printable {
         Validation.concertHallValid(concertHall);
         Validation.eventCodeValid(eventCode);
 
-        this.id = null;
+        this.ticketId = null;
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.eventTime = eventTime;
@@ -64,18 +65,18 @@ public class Ticket extends Indexable implements Printable {
     }
 
     @Override
-    public void setId(String id) {
-        this.id = id;
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
     }
 
     @Override
-    public String getId() {
-        return id;
+    public String getTicketId() {
+        return ticketId;
     }
 
     @Override
     public String print() {
-        return  "Ticket ID: " + id
+        return  "Ticket ID: " + ticketId
                 + "\nConcert Hall: " + concertHall
                 + "\nEvent Code: " + eventCode
                 + "\nEvent Time: " + eventTime
@@ -89,11 +90,8 @@ public class Ticket extends Indexable implements Printable {
         return clientId;
     }
 
-    public String share(){
-        if(sharedType == null){
-            return "Ticket " + getId() + " is not shared";
-        }
-        return sharedType.share();
+    public String shared(){
+        return ValidateSharedType.validateSharedType(sharedType, ticketId);
     }
 
     public SharedType getSharedViaEnum(){

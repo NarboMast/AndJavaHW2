@@ -1,6 +1,6 @@
 package ticketService;
 
-import validationException.ValidationException;
+import exceptions.ValidationException;
 
 public class Validation {
     public static void validateId(String id){

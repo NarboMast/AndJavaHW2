@@ -9,6 +9,12 @@ public class BusTicketValidation {
             BusTicket.startDateViolation++;
             return false;
         }
+
+        if (busTicketStartDate != null && busTicketStartDate.isAfter(LocalDate.now())) {
+            BusTicket.startDateViolation++;
+            return false;
+        }
+
         return true;
     }
     public static boolean validateBusTicketPrice(Integer price){
@@ -16,11 +22,15 @@ public class BusTicketValidation {
             BusTicket.priceViolation++;
             return false;
         }
+        if(price % 2 != 0){
+            BusTicket.priceViolation++;
+            return false;
+        }
         return true;
     }
     public static boolean validateBusTicketType(BusTicketType busTicketType) {
         if(busTicketType == null){
-            BusTicket.TicketTypeViolation++;
+            BusTicket.ticketTypeViolation++;
             return false;
         }
         return true;
