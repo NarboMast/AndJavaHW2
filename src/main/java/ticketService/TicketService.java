@@ -1,7 +1,7 @@
 package ticketService;
 
-import busTicketHandler.BusTicket;
-import busTicketHandler.busTicketStorage.BusTicketStorage;
+import busTickets.BusTicket;
+import busTickets.busTicketStorage.BusTicketStorage;
 import db.DAO;
 import users.*;
 
@@ -26,7 +26,7 @@ public class TicketService {
         admin.checkTicketByClientId(client.getClientId());
 
         BusTicketStorage busTicketStorage = new BusTicketStorage();
-        System.out.println(busTicketStorage.toPrint());
+        System.out.println(busTicketStorage.toString());
 
         String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
         String user = "postgres";
@@ -53,12 +53,12 @@ public class TicketService {
 
         BusTicket busTicket2 = dao.fetchTicketById(2);
         if (busTicket2 != null) {
-            System.out.println(busTicket2.toPrint());
+            System.out.println(busTicket2.toString());
         }
 
         BusTicket busTicket3 = dao.fetchTicketByUserId(1);
         if (busTicket2 != null) {
-            System.out.println(busTicket3.toPrint());
+            System.out.println(busTicket3.toString());
         }
 
         User user3 = dao.fetchUserById(2);

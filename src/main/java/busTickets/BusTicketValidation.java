@@ -1,4 +1,4 @@
-package busTicketHandler;
+package busTickets;
 
 import java.time.LocalDate;
 
