@@ -1,7 +1,7 @@
 package db;
 
-import busTicketHandler.BusTicket;
-import busTicketHandler.BusTicketType;
+import busTickets.BusTicket;
+import busTickets.BusTicketType;
 import users.User;
 
 import java.sql.*;

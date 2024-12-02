@@ -1,4 +1,4 @@
-package busTicketHandler;
+package busTickets;
 
 public enum BusTicketClass {
     CLA, STD
