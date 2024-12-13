@@ -20,7 +20,6 @@ public class TicketStorage {
     }
 
     //These methods are static because Admin needs to check a ticket directly accessing methods and not call a constructor
-
     public static Ticket getTicketById(String id) {
         for (Ticket ticket : tickets) {
             if (ticket != null && ticket.getTicketId().equals(id)) {

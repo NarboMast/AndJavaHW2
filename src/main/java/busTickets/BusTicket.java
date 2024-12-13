@@ -1,15 +1,8 @@
 package busTickets;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
 public class BusTicket {
-    public static int validBusTickets = 0;
-    public static int startDateViolation;
-    public static int priceViolation;
-    public static int ticketTypeViolation;
-    public static final String maxViolation = FindMaxViolation.findMaxViolation(startDateViolation, priceViolation, ticketTypeViolation);
-
     private int busTicketId;
     private int userId;
     private BusTicketClass busTicketClass;
@@ -18,8 +11,7 @@ public class BusTicket {
     private Integer busTicketPrice;
     private LocalDate creationDate;
 
-    // Default constructor required for Jackson
-    public BusTicket() {}
+    //Constructor for JSON file formatted tickets
     public BusTicket(
             BusTicketClass busTicketClass,
             BusTicketType busTicketType,
@@ -32,6 +24,7 @@ public class BusTicket {
         this.busTicketPrice = busTicketPrice;
     }
 
+    //Constructor for DAO (database) tickets
     public BusTicket(
             int busTicketId,
             int userId,
@@ -44,40 +37,16 @@ public class BusTicket {
         this.creationDate = creationDate;
     }
 
-    @JsonProperty("ticketClass")
-    public BusTicketClass getBusTicketClass() {
-        return busTicketClass;
-    }
-    @JsonProperty("ticketClass")
-    public void setBusTicketClass(BusTicketClass busTicketClass) {
-        this.busTicketClass = busTicketClass;
-    }
-
-    @JsonProperty("ticketType")
     public BusTicketType getBusTicketType() {
         return busTicketType;
     }
-    @JsonProperty("ticketType")
-    public void setBusTicketType(BusTicketType busTicketType) {
-        this.busTicketType = busTicketType;
-    }
 
-    @JsonProperty("startDate")
     public LocalDate getBusTicketStartDate() {
         return busTicketStartDate;
     }
-    @JsonProperty("startDate")
-    public void setBusTicketStartDate(LocalDate busTicketStartDate) {
-        this.busTicketStartDate = busTicketStartDate;
-    }
 
-    @JsonProperty("price")
     public Integer getBusTicketPrice() {
         return busTicketPrice;
-    }
-    @JsonProperty("price")
-    public void setBusTicketPrice(Integer busTicketPrice) {
-        this.busTicketPrice = busTicketPrice;
     }
 
     public String getCreationDate() {

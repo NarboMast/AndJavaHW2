@@ -1,8 +1,9 @@
-package ticketService;
-
 import busTickets.BusTicket;
+import busTickets.BusTicketType;
 import busTickets.busTicketStorage.BusTicketStorage;
 import db.DAO;
+import ticketService.Ticket;
+import ticketService.TicketStorage;
 import users.*;
 
 import java.sql.SQLException;
@@ -25,9 +26,12 @@ public class TicketService {
         admin.checkTicketById(ticket.getTicketId());
         admin.checkTicketByClientId(client.getClientId());
 
-        BusTicketStorage busTicketStorage = new BusTicketStorage();
+        String JsonFilePath = "src//main//java//busTickets//busTicketStorage//busTickets.json";
+        BusTicketStorage busTicketStorage = new BusTicketStorage(JsonFilePath);
         System.out.println(busTicketStorage.toString());
 
+
+        //Task 8
         String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
         String user = "postgres";
         Scanner sc = new Scanner(System.in);
@@ -40,16 +44,14 @@ public class TicketService {
             dao.getConnection();
             System.out.println("Connected successfully");
         } catch (SQLException e) {
-            System.out.println(e.getMessage() + "Exception in getConnection");;
+            System.out.println(e.getMessage() + "Exception in getConnection");
         }
 
         dao.addUser(user1);
         dao.addUser(user2);
 
-        BusTicket busTicket0 = busTicketStorage.getBusTicket(0);
-        BusTicket busTicket1 = busTicketStorage.getBusTicket(1);
-        dao.addTicket(busTicket0, user1);
-        dao.addTicket(busTicket1, user2);
+        dao.addTicket(BusTicketType.DAY, "2020-12-12", user1);
+        dao.addTicket(BusTicketType.WEEK, "2022-12-11", user2);
 
         BusTicket busTicket2 = dao.fetchTicketById(2);
         if (busTicket2 != null) {

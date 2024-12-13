@@ -69,19 +69,18 @@ public class DAO {
         }
     }
 
-    public void addTicket(BusTicket busTicket, User user) {
-        String sql = "INSERT INTO public.ticket (user_id, ticket_type, creation_date) VALUES (?, CAST(? AS ticket_type), ?) RETURNING id";
+    public void addTicket(BusTicketType busTicketType, String creationDate, User user) {
+        String sql = "INSERT INTO Ticket (user_id, ticket_type, creation_date) VALUES (?, CAST(? AS ticket_type), ?) RETURNING id";
 
         try (Connection conn = getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, user.getId());
-            stmt.setString(2, busTicket.getBusTicketType().name());
-            stmt.setDate(3, Date.valueOf(busTicket.getCreationDate()));
+            stmt.setString(2, busTicketType.name());
+            stmt.setDate(3, Date.valueOf(creationDate));
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    busTicket.setBusTicketId(rs.getInt("id"));
-                    System.out.println("Ticket added under id: " + busTicket.getBusTicketId());
+                    System.out.println("Ticket added under id: " + rs.getInt("id"));
                 }
             }
         } catch (SQLException e) {

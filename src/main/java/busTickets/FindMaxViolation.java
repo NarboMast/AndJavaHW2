@@ -1,21 +1,30 @@
 package busTickets;
 
 public class FindMaxViolation {
-    public static String findMaxViolation(int a, int b, int c) {
-        int max = a;
-        if (b > max) {
-            max = b;
-        }
-        if (c > max) {
-            max = c;
-        }
+    public static String findMaxViolation(int startDateViolation, int priceViolation, int typeViolation) {
+        String startDate = "Start date";
+        String price = "Price";
+        String ticketType = "Ticket type";
 
-        if (a == max) {
-            return "Start date";
-        } else if (b == max) {
-            return "Price";
+        int max = findMax(startDateViolation, priceViolation, typeViolation);
+
+        if (startDateViolation == max) {
+            return startDate;
+        } else if (priceViolation == max) {
+            return price;
         } else {
-            return "Ticket type";
+            return ticketType;
         }
+    }
+
+    public static int findMax(int startDateViolation, int priceViolation, int typeViolation) {
+        int max = startDateViolation;
+        if (priceViolation > max) {
+            max = priceViolation;
+        }
+        if (typeViolation > max) {
+            max = typeViolation;
+        }
+        return max;
     }
 }

@@ -1,5 +1,5 @@
 package busTickets;
 
 public enum BusTicketClass {
-    CLA, STD
+    CLA,STD
 }
