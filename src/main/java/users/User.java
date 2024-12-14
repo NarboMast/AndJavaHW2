@@ -1,11 +1,22 @@
 package users;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "\"User\"")
 public class User {
+    @Id @GeneratedValue
+    @Column(name = "id")
     private int id;
-    private final String name;
-    private final LocalDate creationDate; //"YYYY-MM-DD" format
+    @Column(name = "name")
+    private String name;
+    @Column(name = "creation_date")
+    private LocalDate creationDate; //"YYYY-MM-DD" format
+
+    //Empty constructor for hibernate
+    public User() {}
 
     public User(String name) {
         this.name = name;
@@ -18,7 +29,7 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
     public void setId(int id) {
@@ -36,8 +47,8 @@ public class User {
     public String printRole(){
         return "I am just a user";
     }
-
-    public String toPrint(){
+    @Override
+    public String toString(){
         return id + " " + name + " " + creationDate;
     }
 }
