@@ -31,9 +31,7 @@ public class TicketDbHibernate {
     }
 
     public void addUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
-        }
+        userNotNull(user);
 
         Session session = factory.openSession();
         Transaction tx = null;
@@ -53,12 +51,8 @@ public class TicketDbHibernate {
     }
 
     public void addBusTicket(BusTicket busTicket, User user) {
-        if (busTicket == null) {
-            throw new IllegalArgumentException("BusTicket cannot be null");
-        }
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
-        }
+        busTicketNotNull(busTicket);
+        userNotNull(user);
 
         busTicket.setUserId(user.getId());
         Session session = factory.openSession();
@@ -85,7 +79,7 @@ public class TicketDbHibernate {
         try {
             busTicket = session.get(BusTicket.class, id);
 
-            if (busTicket != null) {
+            if (busTicketNotNull(busTicket)) {
                 System.out.println("Ticket fetched successfully: " + busTicket);
             } else {
                 System.out.println("Ticket with ID " + id + " not found.");
@@ -99,6 +93,8 @@ public class TicketDbHibernate {
     }
 
     public List<BusTicket> fetchTicketsByUserId(int userId) {
+        userNotNull(fetchUserById(userId));
+
         String hql = "FROM BusTicket WHERE userId = :userId";
         try (Session session = factory.openSession()) {
             Query<BusTicket> query = session.createQuery(hql, BusTicket.class);
@@ -119,7 +115,7 @@ public class TicketDbHibernate {
 
         try{
             user = session.get(User.class, id);
-            if (user != null) {
+            if (userNotNull(user)) {
                 System.out.println("User fetched successfully: " + user);
             } else {
                 System.out.println("User with ID " + id + " not found.");
@@ -137,7 +133,7 @@ public class TicketDbHibernate {
         Transaction tx = null;
         User user = fetchUserById(id);
 
-        if (user != null) {
+        if (userNotNull(user)) {
             List<BusTicket> tickets = fetchTicketsByUserId(user.getId());
             try {
                 tx = session.beginTransaction();
@@ -155,5 +151,18 @@ public class TicketDbHibernate {
                 throw new RuntimeException("Could not delete user");
             }
         }
+    }
+
+    public boolean userNotNull(User user){
+        if(user == null){
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        return true;
+    }
+    public boolean busTicketNotNull(BusTicket busTicket){
+        if (busTicket == null) {
+            throw new IllegalArgumentException("BusTicket cannot be null");
+        }
+        return true;
     }
 }
