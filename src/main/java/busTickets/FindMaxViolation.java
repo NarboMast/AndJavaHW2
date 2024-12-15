@@ -6,7 +6,7 @@ public class FindMaxViolation {
         String price = "Price";
         String ticketType = "Ticket type";
 
-        int max = findMax(startDateViolation, priceViolation, typeViolation);
+        int max = FindMax.findMax(startDateViolation, priceViolation, typeViolation);
 
         if (startDateViolation == max) {
             return startDate;
@@ -15,16 +15,5 @@ public class FindMaxViolation {
         } else {
             return ticketType;
         }
-    }
-
-    public static int findMax(int startDateViolation, int priceViolation, int typeViolation) {
-        int max = startDateViolation;
-        if (priceViolation > max) {
-            max = priceViolation;
-        }
-        if (typeViolation > max) {
-            max = typeViolation;
-        }
-        return max;
     }
 }
