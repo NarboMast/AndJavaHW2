@@ -7,7 +7,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "Ticket")
 public class BusTicket {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "id")
     private int busTicketId;
     @Column(name = "user_id")
