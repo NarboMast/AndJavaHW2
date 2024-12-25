@@ -2,11 +2,13 @@ import busTickets.BusTicket;
 import busTickets.BusTicketType;
 import busTickets.busTicketStorage.BusTicketStorage;
 import db.DAO;
+import db.TicketDbHibernate;
 import ticketService.Ticket;
 import ticketService.TicketStorage;
 import users.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class TicketService {
@@ -29,7 +31,6 @@ public class TicketService {
         String JsonFilePath = "src//main//java//busTickets//busTicketStorage//busTickets.json";
         BusTicketStorage busTicketStorage = new BusTicketStorage(JsonFilePath);
         System.out.println(busTicketStorage.toString());
-
 
         //Task 8
         String url = "jdbc:postgresql://localhost:5432/my_ticket_service_db";
@@ -65,11 +66,24 @@ public class TicketService {
 
         User user3 = dao.fetchUserById(2);
         if (user3 != null) {
-            System.out.println(user3.toPrint());
+            System.out.println(user3);
         }
 
         dao.deleteUserAndTicketsById(2);
 
         dao.clearAllData();
+
+        //Task 9
+        TicketDbHibernate ticketDbHibernate = new TicketDbHibernate();
+        User userh = new User("Facebook");
+        BusTicket busTicketh = new BusTicket(BusTicketType.PRIME, LocalDate.parse("2024-12-12"));
+        ticketDbHibernate.addUser(userh);
+        ticketDbHibernate.addBusTicket(busTicketh, userh);
+        ticketDbHibernate.fetchTicketById(1);
+        ticketDbHibernate.fetchUserById(1);
+        ticketDbHibernate.fetchTicketsByUserId(1);
+        ticketDbHibernate.deleteUserTickets(1);
+        ticketDbHibernate.fetchTicketById(1);
+        ticketDbHibernate.closeFactory();
     }
 }
